@@ -10,7 +10,7 @@ export default function Hero() {
       </div>
 
       <h1
-        className="font-display italic text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.1] mb-6 animate-fade-up"
+        className="font-display italic text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.1] mb-6 animate-fade-up"
         style={{ animationDelay: "100ms" }}
       >
         Your positioning,

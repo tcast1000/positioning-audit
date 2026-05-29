@@ -14,7 +14,7 @@ export default function ShareButton() {
   return (
     <button
       onClick={handleCopy}
-      className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+      className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-[44px] px-2"
       aria-label="Copy link to this audit"
     >
       {copied ? (
