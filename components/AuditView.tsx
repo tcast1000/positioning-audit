@@ -2,6 +2,7 @@ import type { Audit } from "@/types/audit";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import ShareButton from "@/components/ShareButton";
+import DownloadButton from "@/components/DownloadButton";
 
 function Divider() {
   return <div className="w-full h-px bg-border my-14 sm:my-16" />;
@@ -119,7 +120,10 @@ export default function AuditView({ audit }: { audit: Audit }) {
           </svg>
           All audits
         </Link>
-        <ShareButton />
+        <div className="flex items-center gap-1">
+          <ShareButton />
+          <DownloadButton />
+        </div>
       </nav>
 
       {/* Header */}

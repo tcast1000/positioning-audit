@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Hero from "@/components/Hero";
 import AuditCard from "@/components/AuditCard";
 import Footer from "@/components/Footer";
@@ -69,6 +70,24 @@ export default function HomePage() {
               are stored for 30 days.
             </p>
           </div>
+        </div>
+      </section>
+
+      <section className="max-w-3xl mx-auto px-6 pb-24">
+        <div className="w-full h-px bg-border mb-16" />
+        <div className="flex flex-wrap gap-4">
+          <Link
+            href="/compare"
+            className="inline-flex items-center h-11 px-5 text-sm border border-border rounded-sm hover:border-foreground/20 hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            Compare audits
+          </Link>
+          <Link
+            href="/about"
+            className="inline-flex items-center h-11 px-5 text-sm border border-border rounded-sm hover:border-foreground/20 hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            How it works
+          </Link>
         </div>
       </section>
 
