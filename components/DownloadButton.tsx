@@ -156,9 +156,7 @@ export default function DownloadButton({
       document
         .querySelectorAll(".pdf-hide")
         .forEach((el) => el.classList.remove("pdf-hide"));
-      const msg = err instanceof Error ? err.message : String(err);
-      console.error("PDF generation failed:", msg, err);
-      alert(`PDF generation failed: ${msg}`);
+      console.error("PDF generation failed:", err);
       setStatus("failed");
       setTimeout(() => setStatus("idle"), 2000);
     }
