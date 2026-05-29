@@ -1,0 +1,52 @@
+{
+  "company": {
+    "name": "Linear",
+    "url": "https://linear.app"
+  },
+  "generated_at": "2026-05-28T12:00:00Z",
+  "current_positioning_summary": "Linear positions itself as a project and issue tracking tool built for speed and quality. The homepage leads with workflow efficiency and keyboard-first UX, but hedges between developer tooling and broader product team use. The core promise, that this is the way professional software teams should work, is strong but undercut by vague supporting copy.",
+  "dunford": {
+    "competitive_alternatives": [
+      "Jira for issue tracking and sprint planning",
+      "Asana or Monday.com for general project management",
+      "GitHub Issues for lightweight developer task tracking",
+      "Spreadsheets and docs for early-stage teams avoiding formal tooling"
+    ],
+    "unique_attributes": [
+      "Sub-50ms UI interactions across every view",
+      "Opinionated workflows that enforce planning rigor without configuration overhead",
+      "Native cycles and project roadmaps that connect daily tasks to strategic goals",
+      "Keyboard-first design language built for power users"
+    ],
+    "value": [
+      "Teams ship faster because the tool never makes them wait",
+      "Product and engineering stay aligned on priorities without extra syncs",
+      "New hires reach full velocity sooner because the workflow is built-in, not configured per team",
+      "Leadership gets roadmap visibility without asking for status updates"
+    ],
+    "best_fit_customer": "Series A to Series D software companies with 20 to 200 engineers who have outgrown lightweight tools but refuse to accept Jira's complexity as inevitable.",
+    "market_category": "Purpose-built project management for professional software teams, distinct from horizontal project management tools and from code-level developer tools."
+  },
+  "diagnosis": {
+    "hedging": [
+      "\"Designed for modern software teams\" is a non-statement. Every tool claims this. It tells the visitor nothing about why Linear specifically.",
+      "\"Streamline your workflow\" appears twice in supporting copy. Streamline is a word people use when they cannot name the specific improvement."
+    ],
+    "contradictions": [
+      "The homepage pitches speed as the defining trait, then dedicates a full section to strategic roadmapping. These are different buyers with different pain. Trying to win both in the same scroll weakens both arguments.",
+      "The pricing page frames Linear as a team-of-any-size tool, but every feature screenshot shows workflows that only make sense at 15+ person engineering orgs."
+    ],
+    "missing": [
+      "No concrete performance claim. \"Fast\" is relative. \"Every interaction under 50ms\" is a fact a buyer can verify.",
+      "No customer proof in the hero. The logos section is buried below the fold. A single named customer quote next to the headline would do more than the current subhead.",
+      "No direct comparison to the status quo. The best-fit customer is switching from Jira. Say that."
+    ],
+    "first_change": "Replace the subhead with a direct, falsifiable performance claim. Something like: \"Every interaction under 50ms. Your last tool made you wait. Linear does not.\" This grounds the positioning in a fact competitors cannot match and gives the visitor a reason to try it in the first ten seconds."
+  },
+  "rewrite": {
+    "current_headline": "Linear is a better way to build software",
+    "sharper_headline": "Project management that runs as fast as your codebase",
+    "current_subhead": "Meet the new standard for modern software development. Streamline issues, sprints, and product roadmaps.",
+    "sharper_subhead": "Every interaction under 50ms. Plan, track, and ship without waiting on your tools. Built for teams that have outgrown Jira but refuse to accept slow as normal."
+  }
+}

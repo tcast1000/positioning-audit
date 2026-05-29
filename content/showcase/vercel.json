@@ -1,0 +1,52 @@
+{
+  "company": {
+    "name": "Vercel",
+    "url": "https://vercel.com"
+  },
+  "generated_at": "2026-05-28T12:00:00Z",
+  "current_positioning_summary": "Vercel positions itself as the frontend cloud for building fast, personalized web experiences. The homepage leads with developer experience and performance, then pivots to business outcomes. The technical positioning is specific and strong. The business positioning is vague and relies on undefined terms like \"digital experiences\" that could describe any web platform.",
+  "dunford": {
+    "competitive_alternatives": [
+      "Netlify for frontend hosting and CI/CD",
+      "AWS Amplify for full-stack cloud deployment",
+      "Cloudflare Pages for edge-first static and dynamic hosting",
+      "Self-managed infrastructure with Docker and Kubernetes on AWS or GCP"
+    ],
+    "unique_attributes": [
+      "Zero-config deployments from Git push to production URL in seconds",
+      "Edge-first architecture with automatic global distribution and no manual CDN setup",
+      "Tight integration with Next.js as both the framework creator and the hosting provider",
+      "Preview deployments on every pull request with shareable URLs for design and product review"
+    ],
+    "value": [
+      "Frontend teams ship without waiting on DevOps to configure infrastructure",
+      "Pages load fast globally without manual CDN or edge configuration work",
+      "Product and design review changes on real URLs before code merges, not after",
+      "Framework and infrastructure evolve together because the same company builds both"
+    ],
+    "best_fit_customer": "Frontend and full-stack engineering teams at mid-market companies (Series B to public) building customer-facing web applications where page speed and deployment velocity directly affect revenue. Teams already using or evaluating Next.js.",
+    "market_category": "Frontend cloud platform, distinct from general cloud providers (AWS, GCP), static site hosts (GitHub Pages), and traditional PaaS (Heroku)."
+  },
+  "diagnosis": {
+    "hedging": [
+      "\"Build and deploy the best web experiences\" is unfalsifiable. What makes an experience \"the best\"? Vercel's actual advantage is speed, both deployment speed and page load speed. Lead with numbers instead of adjectives.",
+      "\"Enterprise-grade\" appears in the pricing section without definition. Every B2B SaaS tool claims enterprise-grade. What specifically does Vercel offer at the enterprise tier that Netlify does not?"
+    ],
+    "contradictions": [
+      "The homepage speaks to developers (Git integration, CLI, framework support) but the top-of-funnel messaging targets business outcomes (\"drive conversions\"). These are different buyers reading the same page. The developer does not care about conversions. The CMO does not care about Git integration.",
+      "Vercel positions itself as framework-agnostic (\"supports React, Svelte, Vue\") but the product is built around Next.js. The agnostic claim is technically true but strategically misleading. The best Vercel experience requires Next.js. Saying that directly would be more honest and more compelling."
+    ],
+    "missing": [
+      "No direct performance comparison. Vercel claims speed but shows no benchmarks against Netlify, Cloudflare, or self-hosted setups. A concrete claim like \"median deploy time under 8 seconds\" would be more convincing than \"fast.\"",
+      "No migration story. The buyer considering Vercel is currently deploying somewhere else. How hard is the switch? One paragraph addressing migration friction would remove the biggest objection.",
+      "No pricing transparency on the homepage. The jump from free tier to \"contact us\" creates suspicion. Mid-market buyers want to see a number before they talk to sales."
+    ],
+    "first_change": "Split the homepage into two narratives or pick one audience. Lead with the developer pitch (speed, DX, zero-config) and let a separate page handle the business case. Right now the page tries to convince both a frontend engineer and a VP of Marketing in the same scroll, and neither gets a complete argument."
+  },
+  "rewrite": {
+    "current_headline": "Your complete platform for the web",
+    "sharper_headline": "Ship frontend faster. Every deploy in seconds, every page fast by default.",
+    "current_subhead": "Vercel provides the developer tools and cloud infrastructure to build, scale, and secure a faster, more personalized web.",
+    "sharper_subhead": "Push to Git, deploy to the edge. Zero infrastructure to configure, global CDN included, preview URLs on every pull request. Built by the team behind Next.js."
+  }
+}

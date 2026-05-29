@@ -1,0 +1,51 @@
+{
+  "company": {
+    "name": "Notion",
+    "url": "https://notion.so"
+  },
+  "generated_at": "2026-05-28T12:00:00Z",
+  "current_positioning_summary": "Notion positions itself as a connected workspace that replaces multiple tools. The homepage leads with breadth: docs, wikis, projects, and now AI. This is both the product's real strength and its positioning weakness. When you claim to replace everything, you give the buyer no anchor for why they should switch from any one thing.",
+  "dunford": {
+    "competitive_alternatives": [
+      "Google Docs and Drive for writing and document storage",
+      "Confluence for team wikis and internal knowledge bases",
+      "Asana or Monday.com for project tracking and task management",
+      "Airtable for structured databases and custom workflows"
+    ],
+    "unique_attributes": [
+      "Blocks-based editor that composes into any document structure without templates",
+      "Single workspace that genuinely connects docs, projects, and wikis in one graph",
+      "Template ecosystem that lets teams start with pre-built workflows instead of blank pages",
+      "Database views that make the same data readable by different roles without duplicating it"
+    ],
+    "value": [
+      "Teams stop context-switching between four tools for writing, planning, tracking, and storing knowledge",
+      "New team members find everything in one searchable place instead of learning three separate systems",
+      "Non-technical users build custom workflows without engineering help or IT tickets"
+    ],
+    "best_fit_customer": "20 to 200 person companies with cross-functional teams (product, design, engineering) who need one place to write specs, track projects, and share knowledge. Teams that have outgrown Google Docs but find Confluence too rigid.",
+    "market_category": "Connected team workspace, distinct from single-purpose tools (pure docs, pure project management, pure wiki) and from low-code app platforms."
+  },
+  "diagnosis": {
+    "hedging": [
+      "\"One tool for your whole company\" is a positioning non-starter. No buyer walks in thinking \"I need one tool for everything.\" They think \"my wiki is broken\" or \"our project tracking is a mess.\" Leading with breadth instead of a specific pain means no one feels spoken to.",
+      "\"Notion AI\" gets a full section on the homepage but never explains what it does better than ChatGPT or Copilot. The AI pitch is \"AI that knows your work,\" which is the same claim every tool with RAG is making right now."
+    ],
+    "contradictions": [
+      "The homepage pitches Notion as simple (\"Get started for free\") but the product is famously complex to set up well. First-time users face a blank canvas. The positioning promises ease while the product demands investment.",
+      "The pricing tiers suggest Notion scales to enterprise, but the homepage copy and imagery all show small-team workflows. Enterprise buyers scanning this page will not see themselves."
+    ],
+    "missing": [
+      "No named competitor is referenced or implied. Notion's best customers are switching from a specific broken setup: Google Docs plus Asana plus Confluence. Name the pain of juggling three tools.",
+      "No proof of the \"connected\" claim. Show a concrete example: a product spec that links to its project board, its design doc, and its launch tracker. The feature only matters if the buyer can picture it.",
+      "No speed or performance claims. Notion's historical reputation for being slow is a real objection. Silence reads as admission."
+    ],
+    "first_change": "Pick one entry point and lead with it. Instead of \"one tool for everything,\" try \"Start with docs. Replace everything else when you are ready.\" This gives the buyer a clear first step while preserving the platform expansion story. Right now the homepage asks the visitor to believe in a total workflow transformation before they have tried anything."
+  },
+  "rewrite": {
+    "current_headline": "Write, plan, organize, play. It's all here.",
+    "sharper_headline": "Start with docs. Replace your wiki, your project tracker, and your spreadsheets when you're ready.",
+    "current_subhead": "Notion is the connected workspace where better, faster work happens.",
+    "sharper_subhead": "One workspace that connects your team's writing, planning, and tracking. No more copy-pasting between Google Docs, Confluence, and Asana."
+  }
+}
