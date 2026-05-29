@@ -71,7 +71,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ slug });
   } catch (e) {
-    const message = e instanceof Error ? e.message : "Synthesis failed";
+    const raw = e instanceof Error ? e.message : "Synthesis failed";
+    const message = raw.replace(/sk-ant-[a-zA-Z0-9_-]+/g, "[REDACTED]");
 
     if (message.includes("authentication") || message.includes("401")) {
       return NextResponse.json(
@@ -94,6 +95,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again." },
+      { status: 500 }
+    );
   }
 }

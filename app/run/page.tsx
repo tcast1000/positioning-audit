@@ -187,9 +187,30 @@ export default function RunPage() {
               autoComplete="off"
               className="w-full h-11 px-4 text-sm bg-white border border-border rounded-sm placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background disabled:opacity-50 font-mono"
             />
-            <p className="mt-1.5 text-xs text-muted">
-              Used once, server-side, over HTTPS. Never stored.
-            </p>
+            <details className="mt-3 text-xs text-muted group">
+              <summary className="cursor-pointer hover:text-foreground transition-colors select-none">
+                How your key is handled
+              </summary>
+              <ul className="mt-2 space-y-1.5 pl-4 list-disc marker:text-border">
+                <li>Sent over HTTPS to this server for one Anthropic API call</li>
+                <li>Held in memory for the duration of that call only</li>
+                <li>Never written to a database, log file, or analytics service</li>
+                <li>Never sent to any third party besides Anthropic</li>
+                <li>Discarded immediately after the response is received</li>
+                <li>
+                  Source code is{" "}
+                  <a
+                    href="https://github.com/tcast1000/positioning-audit"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 hover:text-foreground transition-colors"
+                  >
+                    open on GitHub
+                  </a>{" "}
+                  so you can verify
+                </li>
+              </ul>
+            </details>
           </div>
 
           {error && (
