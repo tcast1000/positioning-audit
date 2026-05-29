@@ -11,7 +11,13 @@ export default async function OgImage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const audit = await loadAudit(slug);
+
+  let audit;
+  try {
+    audit = await loadAudit(slug);
+  } catch {
+    audit = null;
+  }
 
   const companyName = audit?.company.name ?? "Positioning audit";
   const summary = audit?.current_positioning_summary?.slice(0, 140) ?? "";

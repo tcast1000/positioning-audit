@@ -14,7 +14,7 @@ function getRedis() {
   const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 
   if (url && token) {
-    redis = new Redis({ url, token });
+    redis = new Redis({ url, token, automaticDeserialization: false });
     return redis;
   }
 
@@ -47,9 +47,15 @@ export async function saveAudit(slug: string, audit: Audit): Promise<void> {
 export async function getAudit(slug: string): Promise<Audit | null> {
   const r = getRedis();
   if (r) {
-    const data = await r.get<string>(`audit:${slug}`);
-    if (!data) return null;
-    return typeof data === "string" ? JSON.parse(data) : (data as Audit);
+    try {
+      const data = await r.get<string>(`audit:${slug}`);
+      if (!data) return null;
+      return typeof data === "string" ? JSON.parse(data) : (data as Audit);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      console.error(`[getAudit] redis err: ${msg.slice(0, 200)}`);
+      return null;
+    }
   }
   return getMemoryStore().get(slug) ?? null;
 }

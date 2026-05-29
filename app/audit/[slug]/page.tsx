@@ -10,14 +10,7 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
 
-  let audit;
-  try {
-    audit = await loadAudit(slug);
-  } catch (e) {
-    console.error(`[generateMetadata] loadAudit failed for slug="${slug}":`, e);
-    return {};
-  }
-
+  const audit = await loadAudit(slug);
   if (!audit) return {};
 
   const title = audit.company.name;
@@ -37,13 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function AuditPage({ params }: Props) {
   const { slug } = await params;
 
-  let audit;
-  try {
-    audit = await loadAudit(slug);
-  } catch (e) {
-    console.error(`[AuditPage] loadAudit failed for slug="${slug}":`, e);
-    notFound();
-  }
+  const audit = await loadAudit(slug);
 
   if (!audit) {
     notFound();

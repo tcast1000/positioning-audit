@@ -50,7 +50,14 @@ export async function loadAudit(slug: string): Promise<Audit | null> {
     }
   }
 
-  const audit = await getAudit(slug);
+  let audit: Audit | null = null;
+  try {
+    audit = await getAudit(slug);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error(`[loadAudit] getAudit threw: ${msg.slice(0, 200)}`);
+    return null;
+  }
   if (!audit || !isValidAudit(audit)) return null;
 
   return audit;
