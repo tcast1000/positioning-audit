@@ -39,8 +39,4 @@ export default async function AuditPage({ params }: Props) {
   return <AuditView audit={audit} />;
 }
 
-export async function generateStaticParams() {
-  return showcaseSlugs.map((slug) => ({ slug }));
-}
-
-export const dynamicParams = true;
+export const dynamic = "force-dynamic";
