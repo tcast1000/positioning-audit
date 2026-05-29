@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 
 type Status = "idle" | "generating" | "done" | "failed";
 
@@ -11,58 +11,72 @@ export default function DownloadButton({
 }) {
   const [status, setStatus] = useState<Status>("idle");
 
-  const generate = useCallback(async () => {
+  async function generate() {
     if (status === "generating") return;
     setStatus("generating");
 
-    try {
-      const [{ default: html2canvas }, { default: jsPDF }] = await Promise.all([
-        import("html2canvas"),
-        import("jspdf"),
-      ]);
+    const hideStyle = document.createElement("style");
+    hideStyle.textContent = ".pdf-hide { display: none !important; }";
 
-      const article = document.querySelector("article");
+    try {
+      const { toCanvas } = await import("html-to-image");
+
+      const jspdfModule = await import("jspdf");
+      const jsPDF = jspdfModule.jsPDF ?? jspdfModule.default;
+
+      if (!toCanvas || !jsPDF) {
+        throw new Error("Failed to load PDF libraries");
+      }
+
+      const article = document.querySelector<HTMLElement>("article");
       if (!article) throw new Error("No article element found");
 
-      // Temporarily hide elements that shouldn't appear in the PDF
-      const hiddenEls = document.querySelectorAll(
+      const hiddenEls = article.querySelectorAll(
         "nav, footer, button, .no-print"
       );
       hiddenEls.forEach((el) => el.classList.add("pdf-hide"));
-      const style = document.createElement("style");
-      style.textContent = ".pdf-hide { display: none !important; }";
-      document.head.appendChild(style);
+      document.head.appendChild(hideStyle);
 
-      // Small delay to let the DOM reflow after hiding elements
-      await new Promise((r) => setTimeout(r, 100));
+      // Constrain width and remove centering margin so content fits A4
+      const saved = {
+        width: article.style.width,
+        maxWidth: article.style.maxWidth,
+        padding: article.style.padding,
+        margin: article.style.margin,
+      };
+      article.style.width = "595px";
+      article.style.maxWidth = "595px";
+      article.style.padding = "40px";
+      article.style.margin = "0";
 
-      const canvas = await html2canvas(article as HTMLElement, {
-        scale: 2,
-        backgroundColor: "#F5F5F3",
-        useCORS: true,
-        logging: false,
-      });
+      await new Promise((r) => setTimeout(r, 150));
 
-      // Restore hidden elements immediately after capture
-      style.remove();
-      hiddenEls.forEach((el) => el.classList.remove("pdf-hide"));
+      let canvas: HTMLCanvasElement;
+      try {
+        canvas = await toCanvas(article, {
+          pixelRatio: 2,
+          backgroundColor: "#F5F5F3",
+        });
+      } finally {
+        article.style.width = saved.width;
+        article.style.maxWidth = saved.maxWidth;
+        article.style.padding = saved.padding;
+        article.style.margin = saved.margin;
+        hideStyle.remove();
+        hiddenEls.forEach((el) => el.classList.remove("pdf-hide"));
+      }
 
-      // A4 dimensions in mm
       const pageWidth = 210;
       const pageHeight = 297;
-      const margin = 16; // mm on each side
-      const headerHeight = 8; // mm reserved for page header text
-      const footerHeight = 8; // mm reserved for page number
-
+      const margin = 16;
+      const headerHeight = 8;
+      const footerHeight = 8;
       const contentWidth = pageWidth - margin * 2;
       const contentTop = margin + headerHeight;
       const contentHeight = pageHeight - contentTop - margin - footerHeight;
 
-      // Scale canvas to fit the available content width
       const scaleFactor = contentWidth / canvas.width;
       const scaledFullHeight = canvas.height * scaleFactor;
-
-      // How many pages we need
       const totalPages = Math.ceil(scaledFullHeight / contentHeight);
 
       const pdf = new jsPDF({
@@ -74,17 +88,15 @@ export default function DownloadButton({
       for (let page = 0; page < totalPages; page++) {
         if (page > 0) pdf.addPage();
 
-        // Header text
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(7);
-        pdf.setTextColor(148, 145, 139); // muted color
+        pdf.setTextColor(100, 100, 100);
         pdf.text(
           `Positioning audit — ${companyName}`,
           margin,
           margin + 4
         );
 
-        // Determine the slice of the canvas for this page
         const sourceY = (page * contentHeight) / scaleFactor;
         const sourceHeight = Math.min(
           contentHeight / scaleFactor,
@@ -92,7 +104,6 @@ export default function DownloadButton({
         );
         const destHeight = sourceHeight * scaleFactor;
 
-        // Create a per-page canvas slice
         const pageCanvas = document.createElement("canvas");
         pageCanvas.width = canvas.width;
         pageCanvas.height = Math.ceil(sourceHeight);
@@ -111,10 +122,8 @@ export default function DownloadButton({
           Math.ceil(sourceHeight)
         );
 
-        const pageImgData = pageCanvas.toDataURL("image/png");
-
         pdf.addImage(
-          pageImgData,
+          pageCanvas.toDataURL("image/png"),
           "PNG",
           margin,
           contentTop,
@@ -122,10 +131,9 @@ export default function DownloadButton({
           destHeight
         );
 
-        // Page number footer
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(7);
-        pdf.setTextColor(148, 145, 139);
+        pdf.setTextColor(100, 100, 100);
         const footerText = `Page ${page + 1} of ${totalPages}`;
         const footerWidth = pdf.getTextWidth(footerText);
         pdf.text(
@@ -144,11 +152,17 @@ export default function DownloadButton({
       setStatus("done");
       setTimeout(() => setStatus("idle"), 1500);
     } catch (err) {
-      console.error("PDF generation failed:", err);
+      hideStyle.remove();
+      document
+        .querySelectorAll(".pdf-hide")
+        .forEach((el) => el.classList.remove("pdf-hide"));
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error("PDF generation failed:", msg, err);
+      alert(`PDF generation failed: ${msg}`);
       setStatus("failed");
       setTimeout(() => setStatus("idle"), 2000);
     }
-  }, [companyName, status]);
+  }
 
   return (
     <button
