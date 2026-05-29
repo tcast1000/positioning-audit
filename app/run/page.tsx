@@ -102,7 +102,7 @@ export default function RunPage() {
         return;
       }
 
-      router.push(`/audit/${data.slug}`);
+      router.push(`/audit/${data.slug}?new=1`);
     } catch {
       setError("Network error. Check your connection and try again.");
       setStep("input");

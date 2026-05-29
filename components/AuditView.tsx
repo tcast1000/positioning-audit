@@ -3,6 +3,8 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import ShareButton from "@/components/ShareButton";
 import DownloadButton from "@/components/DownloadButton";
+import EmailButton from "@/components/EmailButton";
+import AuditClientEffects from "@/components/AuditClientEffects";
 
 function Divider() {
   return <div className="w-full h-px bg-border my-14 sm:my-16" />;
@@ -89,7 +91,15 @@ function RewriteBlock({
   );
 }
 
-export default function AuditView({ audit }: { audit: Audit }) {
+export default function AuditView({
+  audit,
+  slug,
+  isNew = false,
+}: {
+  audit: Audit;
+  slug?: string;
+  isNew?: boolean;
+}) {
   const date = new Date(audit.generated_at).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
@@ -122,9 +132,20 @@ export default function AuditView({ audit }: { audit: Audit }) {
         </Link>
         <div className="flex items-center gap-1">
           <ShareButton />
-          <DownloadButton />
+          <EmailButton slug={slug ?? ""} companyName={audit.company.name} />
+          <DownloadButton companyName={audit.company.name} />
         </div>
       </nav>
+
+      {slug && (
+        <AuditClientEffects
+          slug={slug}
+          companyName={audit.company.name}
+          companyUrl={audit.company.url}
+          generatedAt={audit.generated_at}
+          isNew={isNew}
+        />
+      )}
 
       {/* Header */}
       <header className="mb-16 animate-fade-up">
@@ -249,7 +270,7 @@ export default function AuditView({ audit }: { audit: Audit }) {
       </section>
 
       {/* CTA */}
-      <div className="bg-accent-light rounded-sm p-8 sm:p-10 text-center mt-16">
+      <div className="no-print bg-accent-light rounded-sm p-8 sm:p-10 text-center mt-16">
         <p className="font-display text-xl sm:text-2xl mb-2">
           Want one for your company?
         </p>

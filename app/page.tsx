@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import AuditCard from "@/components/AuditCard";
+import RecentAudits from "@/components/RecentAudits";
 import Footer from "@/components/Footer";
 import type { Audit } from "@/types/audit";
 
@@ -33,6 +34,8 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      <RecentAudits />
 
       <section className="max-w-3xl mx-auto px-6 pb-24">
         <div className="w-full h-px bg-border mb-16" />

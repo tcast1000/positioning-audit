@@ -64,6 +64,8 @@ body {
     background: white;
     color: black;
     font-size: 11pt;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 
   nav,
@@ -88,10 +90,18 @@ body {
     background: #f5f0eb !important;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 
   .border-accent {
     border-color: #9E5F3E !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  [class*="border-l-2"][class*="border-accent"] {
+    border-left-color: #9E5F3E !important;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }

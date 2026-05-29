@@ -3,9 +3,10 @@ import { notFound } from "next/navigation";
 import AuditView from "@/components/AuditView";
 import { loadAudit } from "@/lib/loadAudit";
 
-const showcaseSlugs = ["linear", "notion", "vercel"];
-
-type Props = { params: Promise<{ slug: string }> };
+type Props = {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -27,8 +28,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function AuditPage({ params }: Props) {
+export default async function AuditPage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const sp = await searchParams;
+  const isNew = sp.new === "1";
 
   const audit = await loadAudit(slug);
 
@@ -36,7 +39,7 @@ export default async function AuditPage({ params }: Props) {
     notFound();
   }
 
-  return <AuditView audit={audit} />;
+  return <AuditView audit={audit} slug={slug} isNew={isNew} />;
 }
 
 export const dynamic = "force-dynamic";
