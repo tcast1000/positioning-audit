@@ -14,15 +14,33 @@ function parseAuditJson(text: string): Audit {
   if (!parsed.current_positioning_summary) {
     throw new Error("JSON missing current_positioning_summary");
   }
-  if (!parsed.dunford?.competitive_alternatives?.length) {
+
+  const d = parsed.dunford;
+  if (
+    !Array.isArray(d?.competitive_alternatives) || !d.competitive_alternatives.length ||
+    !Array.isArray(d?.unique_attributes) || !d.unique_attributes.length ||
+    !Array.isArray(d?.value) || !d.value.length ||
+    !d?.best_fit_customer ||
+    !d?.market_category
+  ) {
     throw new Error("JSON missing dunford fields");
   }
-  if (!parsed.diagnosis?.first_change) {
+
+  const dx = parsed.diagnosis;
+  if (
+    !Array.isArray(dx?.hedging) ||
+    !Array.isArray(dx?.contradictions) ||
+    !Array.isArray(dx?.missing) ||
+    !dx?.first_change
+  ) {
     throw new Error("JSON missing diagnosis fields");
   }
-  if (!parsed.rewrite?.sharper_headline) {
+
+  const rw = parsed.rewrite;
+  if (!rw?.current_headline || !rw?.sharper_headline || !rw?.current_subhead || !rw?.sharper_subhead) {
     throw new Error("JSON missing rewrite fields");
   }
+
   if (!parsed.generated_at) {
     parsed.generated_at = new Date().toISOString();
   }

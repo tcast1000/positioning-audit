@@ -75,6 +75,7 @@ export default function ComparePage() {
     const slug = slugInput.trim().replace(/.*\/audit\//, "").replace(/\/$/, "");
     if (!slug) return;
     if (entries.length >= 4) return;
+    if (entries.some((e) => e.slug === slug)) return;
     const newIndex = entries.length;
     setEntries((prev) => [
       ...prev,

@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 type Step = "input" | "scraping" | "confirm" | "paste" | "synthesizing";
 
 function estimateCost(textLength: number): string {
-  const systemPromptTokens = 450;
+  const systemPromptTokens = 700;
   const messageOverhead = 20;
   const inputTextTokens = Math.ceil(textLength / 4);
   const totalInputTokens = systemPromptTokens + messageOverhead + inputTextTokens;
@@ -68,17 +68,19 @@ export default function RunPage() {
     }
   }
 
-  async function handleConfirm() {
-    await runSynthesis(resolvedUrl, scrapedText);
+  function handleConfirm() {
+    if (step === "synthesizing") return;
+    runSynthesis(resolvedUrl, scrapedText);
   }
 
-  async function handlePasteSubmit() {
+  function handlePasteSubmit() {
+    if (step === "synthesizing") return;
     if (pastedText.trim().length < 100) {
       setError("Paste at least a few paragraphs of homepage copy.");
       return;
     }
     setError("");
-    await runSynthesis(resolvedUrl, pastedText.trim());
+    runSynthesis(resolvedUrl, pastedText.trim());
   }
 
   async function runSynthesis(targetUrl: string, text: string) {
