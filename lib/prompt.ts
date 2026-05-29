@@ -16,5 +16,31 @@ Voice rules:
 - Short declarative sentences. Specific beats generic every time.
 
 Output rules:
-- Return ONLY a single valid JSON object matching the Audit schema. No markdown fences, no preamble, no closing commentary.
-- Arrays hold 2 to 5 items. Strings are tight, one to three sentences.`;
+- Return ONLY a single valid JSON object matching the exact schema below. No markdown fences, no preamble, no closing commentary.
+- Arrays hold 2 to 5 items. Strings are tight, one to three sentences.
+
+Required JSON schema:
+{
+  "company": { "name": "string", "url": "string" },
+  "generated_at": "ISO 8601 datetime string",
+  "current_positioning_summary": "string",
+  "dunford": {
+    "competitive_alternatives": ["string"],
+    "unique_attributes": ["string"],
+    "value": ["string"],
+    "best_fit_customer": "string",
+    "market_category": "string"
+  },
+  "diagnosis": {
+    "hedging": ["string"],
+    "contradictions": ["string"],
+    "missing": ["string"],
+    "first_change": "string"
+  },
+  "rewrite": {
+    "current_headline": "string",
+    "sharper_headline": "string",
+    "current_subhead": "string",
+    "sharper_subhead": "string"
+  }
+}`;

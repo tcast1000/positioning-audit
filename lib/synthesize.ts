@@ -6,7 +6,28 @@ const MODEL = process.env.CLAUDE_MODEL || "claude-sonnet-4-20250514";
 
 function parseAuditJson(text: string): Audit {
   const cleaned = text.replace(/^```json?\s*/i, "").replace(/```\s*$/, "").trim();
-  return JSON.parse(cleaned);
+  const parsed = JSON.parse(cleaned);
+
+  if (!parsed.company?.name || !parsed.company?.url) {
+    throw new Error("JSON missing company.name or company.url");
+  }
+  if (!parsed.current_positioning_summary) {
+    throw new Error("JSON missing current_positioning_summary");
+  }
+  if (!parsed.dunford?.competitive_alternatives?.length) {
+    throw new Error("JSON missing dunford fields");
+  }
+  if (!parsed.diagnosis?.first_change) {
+    throw new Error("JSON missing diagnosis fields");
+  }
+  if (!parsed.rewrite?.sharper_headline) {
+    throw new Error("JSON missing rewrite fields");
+  }
+  if (!parsed.generated_at) {
+    parsed.generated_at = new Date().toISOString();
+  }
+
+  return parsed as Audit;
 }
 
 export async function synthesize(
