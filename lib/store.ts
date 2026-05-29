@@ -1,19 +1,19 @@
+import { Redis } from "@upstash/redis";
 import type { Audit } from "@/types/audit";
 
 const TTL_SECONDS = 30 * 24 * 60 * 60; // 30 days
 
-let redis: import("@upstash/redis").Redis | null = null;
+let redis: Redis | null = null;
 let memoryStore: Map<string, Audit> | null = null;
 let warned = false;
 
-async function getRedis() {
+function getRedis() {
   if (redis) return redis;
 
   const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 
   if (url && token) {
-    const { Redis } = await import("@upstash/redis");
     redis = new Redis({ url, token });
     return redis;
   }
@@ -36,7 +36,7 @@ function getMemoryStore() {
 }
 
 export async function saveAudit(slug: string, audit: Audit): Promise<void> {
-  const r = await getRedis();
+  const r = getRedis();
   if (r) {
     await r.set(`audit:${slug}`, JSON.stringify(audit), { ex: TTL_SECONDS });
   } else {
@@ -45,7 +45,7 @@ export async function saveAudit(slug: string, audit: Audit): Promise<void> {
 }
 
 export async function getAudit(slug: string): Promise<Audit | null> {
-  const r = await getRedis();
+  const r = getRedis();
   if (r) {
     const data = await r.get<string>(`audit:${slug}`);
     if (!data) return null;
